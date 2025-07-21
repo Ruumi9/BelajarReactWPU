@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Latihan React</title>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        const { useState, useEffect, useRef } = React;
+
+
+
+        function Button({ text, onClick, isDisabled }) {
+            // const myRef = useRef();
+
+            // useEffect(() => {
+            //     console.log(myRef.current);
+            // }, [])
+
+            return <button style={{ margin: "4px" }} onClick={onClick} disabled={isDisabled}>{text}</button>
+        }
+
+
+
+        function HomePage() {
+            const [nilai, setNilai] = React.useState(0);
+
+            function handleTambah() {
+                setNilai(nilai + 1);
+                if (nilai == 10) {
+                    setNilai("Done !");
+                }
+            }
+            function handleKurang() {
+                setNilai(nilai - 1);
+                
+                if(nilai == 0){
+                    setNilai("Done !");
+                }
+            }
+            function handleReset() {
+                setNilai(0);
+            }
+
+            let isDisabled = false;
+            if(nilai === "Done !") {
+                isDisabled = true;
+            }
+
+            let resetDisabled = true;
+            if(nilai == "Done !"){
+                resetDisabled = false;
+            }
+
+            return (
+                <>
+                    <Button text="+" onClick={handleTambah} isDisabled={isDisabled} />
+                    {nilai}
+                    <Button text="-" onClick={handleKurang} isDisabled={isDisabled} />
+                    <br />
+                    <Button text="Reset" onClick={handleReset} isDisabled={resetDisabled} />
+
+                </>
+            )
+        }
+
+        root.render(<HomePage />)
+    </script>
+</body>
+
+</html>
